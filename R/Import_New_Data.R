@@ -14,6 +14,9 @@ library(openair)
 
 #### 1a. Import data Station ID: CA0003, Seberang Perai #### 
 ## From year 1995 until 2013
+## Data obtained from ASMA (Alam Sekitar Malaysia) and NOAA (National Oceanic
+## and Atmospheric Administration). The original data is in my local 'data' folder
+
 
 CA0003_1995 <- read.csv("data/csv_format/CA0003_1995.csv")
 CA0003_1996 <- read.csv("data/csv_format/CA0003_1996.csv")

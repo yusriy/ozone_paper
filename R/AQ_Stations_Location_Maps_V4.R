@@ -11,7 +11,7 @@ library(raster)
 
 # Set working directory
 
-setwd("Your Worknig Directory")
+setwd("Your Working Directory")
 
 # Read in file with station coordinates
 
