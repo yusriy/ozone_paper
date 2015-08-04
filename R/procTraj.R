@@ -1,3 +1,13 @@
+## Function to read and combine files, run getMet() first to download met data
+## Adapted from Carslaw, D. (2015) The openair manual, appendix D
+## Note: you need to specify the location of the installed Hysplit software
+## and other relevant folders needed commented below
+## Input: lat, lon, year, name, met, out, hours, height
+## E.g. hours = 96 (4 days)
+##
+## Author: Yusri Yusup, PhD
+## Date created: 2015-08-04
+
 procTraj <- function(lat = 51.5, lon = -0.1, year = 2010, name = "london",
                      met = "./TrajData/", out = "./TrajProc/", hours = 96, height = 10) {
   ## hours is the back trajectory time e.g. 96 = 4-day back trajectory
@@ -7,11 +17,16 @@ procTraj <- function(lat = 51.5, lon = -0.1, year = 2010, name = "london",
   library(reshape2)
   ## function to run 12 months of trajectories
   ## assumes 96 hour back trajectories, 1 receptor
-  setwd("/Users/Yusri/Documents/Hysplit4_dist/working/")
+  setwd("/Users/Yusri/Documents/Hysplit4_dist/working/") ## change here depending
+  ## on the installation folder of Hysplit in your PC
   
   ## remove existing "tdump" files
-  path.files <- "/Users/Yusri/Documents/Hysplit4_dis/working/"
+  path.files <- "/Users/Yusri/Documents/Hysplit4_dis/working/" ## change here depending
+  ## on the installation folder of Hysplit in your PC
   bat.file <- "/Users/Yusri/Documents/Hysplit4_dist/working/test.sh" ## name of BAT file to add to/run
+  ## change here depending
+  ## on the installation folder of Hysplit in your PC
+  
   files <- list.files(path = path.files, pattern = "tdump")
   lapply(files, function(x) file.remove(x))
   

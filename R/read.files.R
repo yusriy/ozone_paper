@@ -1,3 +1,12 @@
+## Function to read and combine files, used within the procTraj() function
+## Adapted from Carslaw, D. (2015) The openair manual, appendix D
+##
+## Input: hours
+## E.g. hours = 96 (4 days)
+##
+## Author: Yusri Yusup, PhD
+## Date created: 2015-08-04
+
 read.files <- function(hours = 96) {
   ## find tdump files
   files <- Sys.glob("tdump*")
@@ -12,7 +21,8 @@ read.files <- function(hours = 96) {
   close(output)
   
   ## read the combined txt file
-  traj <- read.table("/Users/Yusri/Documents/Hysplit4_dist/working/Rcombined.txt", header = FALSE)
+  traj <- read.table("/Users/Yusri/Documents/Hysplit4_dist/working/Rcombined.txt", 
+                     header = FALSE)
   traj <- subset(traj, select = -c(V2, V7, V8))
   
   traj <- rename(traj, c(V1 = "receptor", V3 = "year", V4 = "month", V5 = "day",
