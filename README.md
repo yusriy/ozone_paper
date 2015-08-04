@@ -1,6 +1,6 @@
-# Surface ozone in Penang 1998-2013
+# Data analysis of surface ozone in Penang 1998-2013
 
-R code to analyze and plot ozone data from Malaysia from 1998-2013. This repo contains some functions copied from the openair package that can be used to run Hysplit:
+R code written in OSX to analyze and plot ozone data from Malaysia from 1998-2013. This repo contains some functions copied from the openair package that can be used to run Hysplit:
 
 1. getMet.R, 
 2. read.files, 
