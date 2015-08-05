@@ -6,6 +6,6 @@ R code written in OSX to analyze and plot ozone data from Malaysia from 1998-201
 2. read.files, 
 3. procTraj.R.  
 
-The original data downloaded from NOAA (meteorological data) and obtained from ASMA (meteorological and air quality data) are not added here due to its large size.
+The original data downloaded from NOAA (meteorological data) and obtained from ASMA (meteorological and air quality data) in CSV format.
 
 -Yusri
