@@ -25,7 +25,7 @@ GoogleMapsPlot(annual,lat='latitude',long='longitude',pollutant='o3',maptype='ro
                col='jet')
 
 # Example
-timePlot(selectByDate(CA0003, start = "1/1/1999", end = "1/1/2013"),
+timePlot(selectByDate(CA0003, start = "1/1/2003", end = "1/1/2007"),
          pollutant = c("T_met",'RH_met','ws','wd'),avg.time="month",data.thresh = 5,
          key=FALSE,name.pol=c(expression(paste("T (",degree,'C)')),'RH (%)',
                               expression(paste('WS (m s'^'-1',')')),

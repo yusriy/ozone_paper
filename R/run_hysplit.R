@@ -1,10 +1,16 @@
+## This script runs Hysplit after downloading met data and looks for the data
+## in certain folders specified within the function
+## 
+## Author: Yusri Yusup
+## Date modified: 2015-08-05
 
+# Load packages
 library(openair)
 
-# Download the data
+# Download the data, commented out so that the data is not downloaded again
 #getMet(year=2013,month=1:12)
 
-# Run Hysplit
+# Run Hysplit, this function changes the working directory.
 for(i in 2013){
   procTraj(lat=5.356249,lon=100.307905,year=i,
            name='penang',hours=24,
