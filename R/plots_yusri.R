@@ -86,8 +86,8 @@ dev.off()
 jpeg(file="figs/paper_figs/F4a_CA0003windrose.jpg",width=1800,height=2400,
      res=360, quality=50)
 par(mar=c(1,1,1,1))
-windRose(CA0003,ws='ws',wd='wd',paddle=FALSE,type='month',fontsize=12,key=TRUE,
-         grid.line=10,breaks=c(2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
+windRose(CA0003,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=12,key=TRUE,
+         grid.line=10,breaks=c(0,2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
          annotate=FALSE,angle.scale=45,
          par.settings=list(layout.heights=list(top.padding=-1, bottom.padding=-1)))
 dev.off()
@@ -95,8 +95,8 @@ dev.off()
 ### Fig. 4b Wind rose ####
 jpeg(file="figs/paper_figs/F4b_CA0038windrose.jpg",width=1800,height=2400,
      res=360, quality=50)
-windRose(CA0038,ws='ws',wd='wd',paddle=FALSE,type='month',fontsize=12,key=TRUE,
-         grid.line=10,breaks=c(2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
+windRose(CA0038,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=12,key=TRUE,
+         grid.line=10,breaks=c(0,2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
          annotate=FALSE,angle.scale=45,
          par.settings=list(layout.heights=list(top.padding=-1, bottom.padding=-1)))
 dev.off()

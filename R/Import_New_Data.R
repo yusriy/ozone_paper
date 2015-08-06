@@ -491,4 +491,70 @@ CA0009_1y <- timeAverage(CA0009,avg.time='1 year',statistic='mean')
 CA0038_1y <- timeAverage(CA0038,avg.time='1 year',statistic='mean')
 ##
 
+### 4. Cut data into different monsoon seasons ####
+## Note: Northeast monsoon: Dec-Jan-Feb-Mar (4 months) NEM
+## Spring transitional inter-monsoon: Apr-May (2 months) STM
+## Southwest monsoon: Jun-Jul-Aug-Sep (4 months) SWM
+## Fall transitional inter-monsoon: Oct-Nov (2 months) FTM
+
+CA0003_month <- cutData(CA0003,type='month')
+CA0009_month <- cutData(CA0009,type='month')
+CA0038_month <- cutData(CA0038,type='month')
+
+# For station CA0003 classify data based on months of the monsoon season
+monsoon <- ''
+for (i in 1:nrow(CA0003)){
+  if (CA0003_month$month[i] == 'December' | CA0003_month$month[i] == 'January' |
+      CA0003_month$month[i] == 'February' | CA0003_month$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0003_month$month[i] == 'April' | CA0003_month$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0003_month$month[i] == 'June' | CA0003_month$month[i] == 'July' |
+             CA0003_month$month[i] == 'August' | CA0003_month$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0003 <- cbind(CA0003_month,monsoon)
+rm(monsoon,CA0003_month)
+
+# For station CA0009 classify data based on months of the monsoon season
+monsoon <- ''
+for (i in 1:nrow(CA0009)){
+  if (CA0009_month$month[i] == 'December' | CA0009_month$month[i] == 'January' |
+      CA0009_month$month[i] == 'February' | CA0009_month$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0009_month$month[i] == 'April' | CA0009_month$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0009_month$month[i] == 'June' | CA0009_month$month[i] == 'July' |
+             CA0009_month$month[i] == 'August' | CA0009_month$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0009 <- cbind(CA0009_month,monsoon)
+rm(monsoon,CA0009_month)
+
+# For station CA0038 classify data based on months of the monsoon season
+monsoon <- ''
+for (i in 1:nrow(CA0038)){
+  if (CA0038_month$month[i] == 'December' | CA0038_month$month[i] == 'January' |
+      CA0038_month$month[i] == 'February' | CA0038_month$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0038_month$month[i] == 'April' | CA0038_month$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0038_month$month[i] == 'June' | CA0038_month$month[i] == 'July' |
+             CA0038_month$month[i] == 'August' | CA0038_month$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0038 <- cbind(CA0038_month,monsoon)
+rm(monsoon,CA0038_month)
 
