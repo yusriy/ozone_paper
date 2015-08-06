@@ -5,6 +5,7 @@
 
 #### Load packages/libraries ####
 library(openair)
+library(mapdata) # To use hi-res map data
 
 ### Fig. 2 Monthly averaging met time-series (Mainland) ##### 
 ## Plot of temperature, RH, wind speed, wind direction
@@ -82,8 +83,8 @@ timePlot(selectByDate(CA0038, start = "1/1/1999", end = "1/1/2013"),
          lty = c(1,1),fontsize=16) 
 dev.off()
 
-### Fig. 4a Wind rose (WMKB) ####
-jpeg(file="figs/paper_figs/F4a_CA0003windrose.jpg",width=1800,height=2400,
+### Fig. 3a Wind rose (WMKB) ####
+jpeg(file="figs/paper_figs/F3a_CA0003windrose.jpg",width=1800,height=2400,
      res=360, quality=50)
 par(mar=c(1,1,1,1))
 windRose(CA0003,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=16,key=TRUE,
@@ -92,8 +93,8 @@ windRose(CA0003,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=16,key=TRUE
          par.settings=list(layout.heights=list(top.padding=-1, bottom.padding=-1)))
 dev.off()
 
-### Fig. 4b Wind rose ####
-jpeg(file="figs/paper_figs/F4b_CA0038windrose.jpg",width=1800,height=2400,
+### Fig. 3b Wind rose ####
+jpeg(file="figs/paper_figs/F3b_CA0038windrose.jpg",width=1800,height=2400,
      res=360, quality=50)
 windRose(CA0038,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=16,key=TRUE,
          grid.line=10,breaks=c(0,2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
@@ -101,4 +102,17 @@ windRose(CA0038,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=16,key=TRUE
          par.settings=list(layout.heights=list(top.padding=-1, bottom.padding=-1)))
 dev.off()
 
+#### Trajectory analysis ####
+# 24-hour hourly back trajectory analysis from Jan-Dec 2013
+# Import data first
+# Import data, need to run run_hysplit first.
 
+#trajPenang<-importTraj(site='penang',year=2013,local='./TrajProc/')
+
+jpeg(file="figs/paper_figs/F4_trajA.jpg",width=3600,height=3600,
+     res=360, quality=50)
+# Plot frequency of sources
+trajLevel(subset(trajPenang,lat > 0 & lat < 10 & lon > 95 & lon < 105),
+          col='increment',orientation=c(90,90,0),method='hexbin',type='monsoon',
+          projection='mercator',parameters=NULL,map.res='hires',grid.col='black')
+dev.off()
