@@ -88,7 +88,7 @@ jpeg(file="figs/paper_figs/F4a_CA0003windrose.jpg",width=1800,height=2400,
 par(mar=c(1,1,1,1))
 windRose(CA0003,ws='ws',wd='wd',paddle=FALSE,type='monsoon',fontsize=12,key=TRUE,
          grid.line=10,breaks=c(0,2,4,6,8,10), key.footer = expression('WS, m s'^'-1'),
-         annotate=FALSE,angle.scale=45,
+         annotate=FALSE,angle.scale=335,
          par.settings=list(layout.heights=list(top.padding=-1, bottom.padding=-1)))
 dev.off()
 
