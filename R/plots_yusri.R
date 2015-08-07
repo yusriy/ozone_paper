@@ -114,5 +114,6 @@ jpeg(file="figs/paper_figs/F4_trajA.jpg",width=3600,height=3600,
 # Plot frequency of sources
 trajLevel(subset(trajPenang,lat > 0 & lat < 10 & lon > 95 & lon < 105),
           col='increment',orientation=c(90,90,0),method='hexbin',type='monsoon',
-          projection='mercator',parameters=NULL,map.res='hires',grid.col='black')
+          projection='mercator',parameters=NULL,map.res='hires',grid.col='black',
+          fontsize=16)
 dev.off()
