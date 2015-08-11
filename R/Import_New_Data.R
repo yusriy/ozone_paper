@@ -489,6 +489,10 @@ CA0038_8h$date <- CA0038_8h$date + 28800
 CA0003_1y <- timeAverage(CA0003,avg.time='1 year',statistic='mean')
 CA0009_1y <- timeAverage(CA0009,avg.time='1 year',statistic='mean')
 CA0038_1y <- timeAverage(CA0038,avg.time='1 year',statistic='mean')
+## Hourly average
+#CA0003_1h <- timeAverage(CA0003,avg.time='1 hour',statistic='mean')
+#CA0009_1h <- timeAverage(CA0009,avg.time='1 hour',statistic='mean')
+#CA0038_1h <- timeAverage(CA0038,avg.time='1 hour',statistic='mean')
 ##
 
 ### 4. Cut data into different monsoon seasons ####
@@ -518,6 +522,7 @@ for (i in 1:nrow(CA0003)){
 }
 monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
 CA0003 <- cbind(CA0003_month,monsoon)
+#CA0003_1h <- cbind(CA0003_1h,monsoon)
 rm(monsoon,CA0003_month)
 
 # For station CA0009 classify data based on months of the monsoon season
@@ -537,6 +542,7 @@ for (i in 1:nrow(CA0009)){
 }
 monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
 CA0009 <- cbind(CA0009_month,monsoon)
+#CA0009_1h <- cbind(CA0009_1h,monsoon)
 rm(monsoon,CA0009_month)
 
 # For station CA0038 classify data based on months of the monsoon season
@@ -556,5 +562,7 @@ for (i in 1:nrow(CA0038)){
 }
 monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
 CA0038 <- cbind(CA0038_month,monsoon)
+#CA0038_1h <- cbind(CA0038_1h,monsoon)
 rm(monsoon,CA0038_month)
+
 
