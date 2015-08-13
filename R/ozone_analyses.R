@@ -60,6 +60,16 @@ CA0038wd <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
                      pollutant='wd',main='WMKP',deseason=TRUE,dec.place=4,
                      shade='white',fontsize=14,ylab='WD',type='monsoon')
 
+## For different wind directions
+## Temperature mainland
+CA0003T <- TheilSen(selectByDate(CA0003,year=2003:2013),statistic = 'median',
+                    pollutant='T_met',main='WMKB',deseason=TRUE,dec.place=4,
+                    shade='white',fontsize=14,ylab='T',type='wd')
+## Temperature island
+CA0038T <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
+                    pollutant='T_met',main='WMKP',deseason=TRUE,dec.place=4,
+                    shade='white',fontsize=14,ylab='T',type='wd')
+
 ## Results: basically, there are no yearly changes in (at the 95% sig. level)
 ## T, RH, WS, and WD from 2003-2013
 
@@ -80,6 +90,24 @@ CA0003no2 <- TheilSen(selectByDate(CA0003,year=2003:2013),statistic = 'median',
 CA0038no2 <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
                      pollutant='no2',main='WMKP',deseason=TRUE,dec.place=4,
                      shade='white',fontsize=14,ylab='NO2',type='monsoon')
+
+# For different wind directions
+## O3 mainland
+CA0003o3 <- TheilSen(selectByDate(CA0003,year=2003:2013),statistic = 'median',
+                     pollutant='o3',main='WMKB',deseason=TRUE,dec.place=4,
+                     shade='white',fontsize=14,ylab='O3',type=c('wd','monsoon'))
+## O3 island
+CA0038o3 <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
+                     pollutant='o3',main='WMKP',deseason=TRUE,dec.place=4,
+                     shade='white',fontsize=14,ylab='O3',type=c('wd','monsoon'))
+## NO2 mainland
+CA0003no2 <- TheilSen(selectByDate(CA0003,year=2003:2013),statistic = 'median',
+                      pollutant='no2',main='WMKB',deseason=TRUE,dec.place=4,
+                      shade='white',fontsize=14,ylab='NO2',type=c('wd','monsoon'))
+## NO2 island
+CA0038no2 <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
+                      pollutant='no2',main='WMKP',deseason=TRUE,dec.place=4,
+                      shade='white',fontsize=14,ylab='NO2',type=c('wd','monsoon'))
 
 #### Means and SD of met for different Monsoons ####
 ## Northeast Monsoon
