@@ -109,6 +109,9 @@ CA0038no2 <- TheilSen(selectByDate(CA0038,year=2003:2013),statistic = 'median',
                       pollutant='no2',main='WMKP',deseason=TRUE,dec.place=4,
                       shade='white',fontsize=14,ylab='NO2',type=c('wd','monsoon'))
 
+## Results: Ozone is increasing for all Monsoons and wind directions on the island
+## but not on the mainland. NO2 does not change on the mainland and island.
+
 #### Means and SD of met for different Monsoons ####
 ## Northeast Monsoon
 # Mainland T NEM
