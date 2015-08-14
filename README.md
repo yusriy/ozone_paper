@@ -7,7 +7,7 @@ A repository of R codes - written in OSX - to analyze and plot ozone data of Pul
 This repo also contains some functions copied from the 'openair' R package (Carslaw and Ropkins, 2012) that can be used to download NCAR/NCEP data to run Hysplit (a back-trajectory analysis model). Note that you need to have HYSPLIT installed before running these functions:
 
 1. getMet.R
-2. read.files 
+2. read.files.R
 3. procTraj.R  
 
 
