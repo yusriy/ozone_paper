@@ -14,7 +14,4 @@ This repo also contains some functions copied from the 'openair' R package (Cars
 ### References
 Carslaw, D.C. and K. Ropkins, openair - An R package for air quality data analysis. Environmental Modelling & Software, 2012. 27-28: p. 52-61.
 
-Yusri Yusup
-Environmental Technology
-School of Industrial Technology
-Universiti Sains Malaysia
+Yusri Yusup, Environmental Technology, School of Industrial Technology, Universiti Sains Malaysia
