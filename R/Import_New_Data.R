@@ -472,30 +472,8 @@ names(CA0003)[16] <- 'wd'
 names(CA0009)[16] <- 'wd'
 names(CA0038)[16] <- 'wd'
 
-##### 3. Converting to 8 hour averages ###############
 
-## Maximum 8 hour value, NOTE: date had been converted to GMT from local time.
-## Need to convert back if necessary by adding 8 hours = 8 * 60 * 60 = 28800 s
-## E.g., CA0038_8h$date <- CA0038_8h$date + 28800
-CA0003_8h <- timeAverage(CA0003,avg.time='8 hour',statistic='max')
-CA0009_8h <- timeAverage(CA0009,avg.time='8 hour',statistic='max')
-CA0038_8h <- timeAverage(CA0038,avg.time='8 hour',statistic='max')
-
-CA0003_8h$date <- CA0003_8h$date + 28800
-CA0009_8h$date <- CA0009_8h$date + 28800
-CA0038_8h$date <- CA0038_8h$date + 28800
-
-## Yearly average for testing purposes
-CA0003_1y <- timeAverage(CA0003,avg.time='1 year',statistic='mean')
-CA0009_1y <- timeAverage(CA0009,avg.time='1 year',statistic='mean')
-CA0038_1y <- timeAverage(CA0038,avg.time='1 year',statistic='mean')
-## Hourly average
-#CA0003_1h <- timeAverage(CA0003,avg.time='1 hour',statistic='mean')
-#CA0009_1h <- timeAverage(CA0009,avg.time='1 hour',statistic='mean')
-#CA0038_1h <- timeAverage(CA0038,avg.time='1 hour',statistic='mean')
-##
-
-### 4. Cut data into different monsoon seasons ####
+### 3. Cut data into different monsoon seasons ####
 ## Note: Northeast monsoon: Dec-Jan-Feb-Mar (4 months) NEM
 ## Spring transitional inter-monsoon: Apr-May (2 months) STM
 ## Southwest monsoon: Jun-Jul-Aug-Sep (4 months) SWM
@@ -565,4 +543,142 @@ CA0038 <- cbind(CA0038_month,monsoon)
 #CA0038_1h <- cbind(CA0038_1h,monsoon)
 rm(monsoon,CA0038_month)
 
+##### 4. Converting to 8 (24) hour averages ###############
+
+## Maximum 8 hour (or 24 hour) value, NOTE: date had been converted to GMT from local time.
+## Need to convert back if necessary by adding 8 hours = 8 * 60 * 60 = 28800 s
+## E.g., CA0038_8h$date <- CA0038_8h$date + 28800
+
+
+## The 8 hour average is used to extract mean mid-day RH, ws, wd, no2
+CA0003_8h <- timeAverage(CA0003,avg.time='8 hour',statistic='mean')
+CA0009_8h <- timeAverage(CA0009,avg.time='8 hour',statistic='mean')
+CA0038_8h <- timeAverage(CA0038,avg.time='8 hour',statistic='mean')
+
+## Convert back to local time
+CA0003_8h$date <- CA0003_8h$date + 28800
+CA0009_8h$date <- CA0009_8h$date + 28800
+CA0038_8h$date <- CA0038_8h$date + 28800
+
+# Just select the time of 16:00 to represent mean mid-day values 08:00 to 16:00
+CA0003_8h <- selectByDate(CA0003_8h,start='1/1/1999',end='1/1/2014',hour=16)
+CA0009_8h <- selectByDate(CA0009_8h,start='1/1/1999',end='1/1/2014',hour=16)
+CA0038_8h <- selectByDate(CA0038_8h,start='1/1/1999',end='1/1/2014',hour=19)
+
+# Change all 16:00 to 00:00 to merge later with the 24 hour data except for 
+# CA0038 because mid-day time is at 19:00
+CA0003_8h$date <- CA0003_8h$date - (16*60*60)
+CA0009_8h$date <- CA0009_8h$date - (16*60*60)
+CA0038_8h$date <- CA0038_8h$date - (19*60*60)
+
+
+## The 24 hour max average is used to extract max T_met and o3
+CA0003_24h <- timeAverage(CA0003, avg.time='24 hour',statistic='max')
+CA0009_24h <- timeAverage(CA0009, avg.time='24 hour',statistic='max')
+CA0038_24h <- timeAverage(CA0038, avg.time='24 hour',statistic='max')
+
+## Convert back to local time
+CA0003_24h$date <- CA0003_24h$date + 28800
+CA0009_24h$date <- CA0009_24h$date + 28800
+# Because CA0038 used different averaging time, time must be added only 
+# by 5 hours
+CA0038_24h$date <- CA0038_24h$date + (5*60*60)
+
+# Remove the last row to ensure all dataframes have the same number of rows
+CA0003_24h <- CA0003_24h[-nrow(CA0003_24h),]
+CA0009_24h <- CA0009_24h[-nrow(CA0009_24h),]
+
+CA0038_24h <- selectByDate(CA0038_24h,start='1/1/1999',end='1/1/2014')
+#CA0038_24h <- CA0038_24h[-nrow(CA0038_24h),]
+
+## Yearly average for testing purposes
+#CA0003_1y <- timeAverage(CA0003,avg.time='1 year',statistic='mean')
+#CA0009_1y <- timeAverage(CA0009,avg.time='1 year',statistic='mean')
+#CA0038_1y <- timeAverage(CA0038,avg.time='1 year',statistic='mean')
+## Hourly average
+#CA0003_1h <- timeAverage(CA0003,avg.time='1 hour',statistic='mean')
+#CA0009_1h <- timeAverage(CA0009,avg.time='1 hour',statistic='mean')
+#CA0038_1h <- timeAverage(CA0038,avg.time='1 hour',statistic='mean')
+##
+
+# Before merging, extract needed parameters from 8 hour data (date,no2,ws,wd,
+# RH_met)
+CA0003_model1 <- CA0003_8h[,c(1,7,13,14,19)]
+CA0009_model1 <- CA0009_8h[,c(1,7,13,14,19)]
+CA0038_model1 <- CA0038_8h[,c(1,7,13,14,19)]
+# Extract needed o3 and T_met
+CA0003_model2 <- CA0003_24h[,c(1,8,15)]
+CA0009_model2 <- CA0009_24h[,c(1,8,15)]
+CA0038_model2 <- CA0038_24h[,c(1,8,15)]
+
+# Merge data
+CA0003_model <- merge(CA0003_model1,CA0003_model2,by='date')
+CA0009_model <- merge(CA0009_model1,CA0009_model2,by='date')
+CA0038_model <- merge(CA0038_model1,CA0038_model2,by='date')
+
+rm(CA0003_model1,CA0009_model1,CA0038_model1,CA0003_model2,CA0009_model2,
+   CA0038_model2)
+
+# Adding monsoons again
+CA0003_model <- cutData(CA0003_model,type='month')
+CA0009_model <- cutData(CA0009_model,type='month')
+CA0038_model <- cutData(CA0038_model,type='month')
+# CA0003
+monsoon <- ''
+for (i in 1:nrow(CA0003_model)){
+  if (CA0003_model$month[i] == 'December' | CA0003_model$month[i] == 'January' |
+      CA0003_model$month[i] == 'February' | CA0003_model$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0003_model$month[i] == 'April' | CA0003_model$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0003_model$month[i] == 'June' | CA0003_model$month[i] == 'July' |
+             CA0003_model$month[i] == 'August' | CA0003_model$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0003_model <- cbind(CA0003_model,monsoon)
+#CA0003_1h <- cbind(CA0003_1h,monsoon)
+rm(monsoon)
+# CA0009
+monsoon <- ''
+for (i in 1:nrow(CA0009_model)){
+  if (CA0009_model$month[i] == 'December' | CA0009_model$month[i] == 'January' |
+      CA0009_model$month[i] == 'February' | CA0009_model$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0009_model$month[i] == 'April' | CA0009_model$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0009_model$month[i] == 'June' | CA0009_model$month[i] == 'July' |
+             CA0009_model$month[i] == 'August' | CA0009_model$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0009_model <- cbind(CA0009_model,monsoon)
+#CA0003_1h <- cbind(CA0003_1h,monsoon)
+rm(monsoon)
+
+# CA0038
+monsoon <- ''
+for (i in 1:nrow(CA0038_model)){
+  if (CA0038_model$month[i] == 'December' | CA0038_model$month[i] == 'January' |
+      CA0038_model$month[i] == 'February' | CA0038_model$month[i] == 'March') {
+    monsoon[i] <- 'NEM'
+  } else if (CA0038_model$month[i] == 'April' | CA0038_model$month[i] == 'May') {
+    monsoon[i] <- 'STM'
+  } else if (CA0038_model$month[i] == 'June' | CA0038_model$month[i] == 'July' |
+             CA0038_model$month[i] == 'August' | CA0038_model$month[i] == 'September'){
+    monsoon[i] <- 'SWM'
+  } else {
+    monsoon[i] <- 'FTM'
+  }
+}
+monsoon<-factor(monsoon,levels=c('NEM','STM','SWM','FTM'),ordered=TRUE)
+CA0038_model <- cbind(CA0038_model,monsoon)
+#CA0003_1h <- cbind(CA0003_1h,monsoon)
+rm(monsoon)
 
