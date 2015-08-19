@@ -9,7 +9,7 @@
 ## Date created: 2015-08-04
 
 procTraj <- function(lat = 51.5, lon = -0.1, year = 2010, name = "london",
-                     met = "./TrajData/", out = "./TrajProc/", hours = 96, height = 10) {
+                     met = "/TrajData", out = "/TrajProc", hours = 96, height = 10) {
   ## hours is the back trajectory time e.g. 96 = 4-day back trajectory
   ## height is start height (m)
   library(openair)
