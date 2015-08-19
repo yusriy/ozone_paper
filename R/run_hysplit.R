@@ -8,13 +8,18 @@
 library(openair)
 library(mapdata) # To use hi-res maps
 
+source('R/procTraj.R')
+source('R/read.files.R')
+source('R/getMet.R')
+source('R/add.met.R')
+
 # Download the data, commented out so that the data is not downloaded again
 #getMet(year=2013,month=1:12)
 
 # Run Hysplit, this function changes the working directory.
 for(i in 2013){
   procTraj(lat=5.356249,lon=100.307905,year=i,
-           name='penang',hours=24,
+           name='penang',hours=24,height=300,
            met='/Users/Yusri/Documents/Work/Data analysis/ozone_paper/TrajData/',
            out='/Users/Yusri/Documents/Work/Data analysis/ozone_paper/TrajProc/')
 }
